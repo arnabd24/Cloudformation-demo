@@ -1,10 +1,15 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: This is to Create a custom VPC in AWS
+Parameters:
+  VPCIPRange:
+     Description: Enter the ip address range based 
+     Type: String
+     Default: 10.0.0.0/24
 Resources: 
  CloudformationVPC:
   Type: AWS::EC2::VPC
   Properties:
-    CidrBlock: 10.0.0.0/16
+    CidrBlock: !Ref VPCIPRange
     EnableDnsSupport: 'true'
     EnableDnsHostnames: 'true'
     Tags:
@@ -18,3 +23,5 @@ Outputs:
     Value: !GetAtt
       - CloudformationVPC
       - VpcId
+    Export:
+      Name: !Sub '${AWS::StackName}-myvpcid'

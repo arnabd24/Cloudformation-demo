@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: This is to Create a custom VPC in AWS
+Resources: 
+ CloudformationVPC:
+  Type: AWS::EC2::VPC
+  Properties:
+    CidrBlock: 10.0.0.0/16
+    EnableDnsSupport: 'true'
+    EnableDnsHostnames: 'true'
+    Tags:
+      - Key: Name
+        Value: !Sub '${AWS::StackName}-VPC'
+      - Key: stack
+        Value: production
+Outputs:
+  MyVPC:
+    Description: this is my VPCID
+    Value: !GetAtt
+      - CloudformationVPC
+      - VpcId
